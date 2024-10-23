@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style.css">
+    <title>YOUR PROFILE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="Farmer.css">
+    <link
+      rel="shortcut icon"
+      href="images/fav.png"
+      type="image/svg"
+    />
+</head>
+        
+
+<body>
+    
+        
+    <section class="sub-header">
+
+        <nav>
+            <a herf="../index.html"><img src="../images/logo1.png"></a>
+             <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                      <ul>
+                        <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
+
+                    
+                        <li><a href="">Growth</a></li>
+                        
+                      </ul>
+             </div>
+             <i class="fa fa-bars" onclick="showMenu()" ></i>
+        </nav>
+          <h1> Reduce workload, optimize operations, and <br>maximize your farm's potential.</h1>
+         </section>
+<!--------------------------------------------------------------------------------------------------------------------------------->
+
+<body>
+    <div class="abc">
+        <!-- Cover Photo Section -->
+        <div class="cover-photo">
+            <input type="file" id="cover-photo-input" accept="image/*">
+            <label for="cover-photo-input">Upload Cover Photo</label>
+        </div>
+
+        <!-- Profile Picture and Information Section -->
+        <div class="profile-info">
+            <div class="profile-pic">
+                <input type="file" id="profile-pic-input" accept="image/*">
+                <label for="profile-pic-input">Upload Profile Photo</label>
+                <img id="profile-pic" src="" alt="Profile Picture">
+            </div>
+            <div class="farmer-details">
+                <input type="text" id="name" placeholder="Name">
+                <input type="text" id="registration-number" placeholder="Registration Number">
+                <input type="text" id="address" placeholder="Address">
+                <input type="text" id="contact-number" placeholder="Contact Number">
+            </div>
+        </div>
+
+        <!-- Additional Information Sections -->
+        <div class="info-section">
+            <textarea id="farmer-info" placeholder="Add information about the farmer"></textarea>
+            
+            <!-- Animal Feeding Management Section -->
+            <div class="feeding-management">
+                <h2>Animal Feeding Management</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Animal</th>
+                            <th>Feed Type</th>
+                            <th>Quantity</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true">Cow</td>
+                            <td contenteditable="true">Hay</td>
+                            <td contenteditable="true">20 kg</td>
+                            <td contenteditable="true">Daily</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Milk Yield Tracking Section -->
+            <div class="milk-yield-tracking">
+                <h2>Milk Yield Tracking</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Animal</th>
+                            <th>Yield (Liters)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true">2023-07-13</td>
+                            <td contenteditable="true">Cow</td>
+                            <td contenteditable="true">15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Vaccination Schedule Management Section -->
+            <div class="vaccination-schedule">
+                <h2>Vaccination Schedule Management</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Animal</th>
+                            <th>Vaccine</th>
+                            <th>Next Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true">2023-07-01</td>
+                            <td contenteditable="true">Cow</td>
+                            <td contenteditable="true">FMD</td>
+                            <td contenteditable="true">2024-07-01</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Upload Photos and Notes Section -->
+            <div class="upload-photos-notes">
+                <h2>Upload Photos and Notes</h2>
+                <div class="upload-section">
+                    <input type="file" id="additional-photo-input" accept="image/*">
+                    <textarea id="photo-note" placeholder="Add a note about this photo"></textarea>
+                </div>
+                <button id="upload-button" class="upload-button">Upload</button>
+            </div>
+        </div>
+        
+        <!-- Update Profile Button -->
+        <button id="update-profile-button" class="update-profile-button">Update Profile</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>FARMSCAPE</h2>
+            </div>
+            <div class="footer-sections">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../About_Us/About.html">about us</a></li>
+                        <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
+                        <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get help</h4>
+                    <ul>
+                        <li><a href="../Find-Doctor/finddoctor.html">Find Doctors</a></li>
+                        <li><a href="../Farmer/Farmer.html">Your Profile</a></li>
+                        <li><a href="../Showdoctor_Page/showdoctorpage.html">Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Online Shop</h4>
+                    <ul>
+                        <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
+                        <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

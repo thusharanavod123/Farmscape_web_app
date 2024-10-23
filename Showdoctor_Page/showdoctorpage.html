@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="showdoctorpage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/svg">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="sub-header">
+        <nav>
+            <a href="../index.html"><img src="../images/logo1.png" alt="Farmscape Logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
+                  
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Doctor Profile</h1>
+    </section>
+
+    <!-- Doctor Profile Section -->
+    <div class="profile-container">
+        <!-- Profile Picture and Basic Info -->
+        <div class="profile-header">
+            <div class="profile-pic-container">
+                <img src="images/profile-pic-placeholder.png" alt="Doctor Profile Picture" id="profile-pic">
+                <!-- <label for="profile-pic-input">Change Profile Picture</label>
+                <input type="file" id="profile-pic-input" accept="image/*"> -->
+            </div>
+            <div class="profile-basic-info">
+                <h2>Dr. John Doe</h2>
+                <p>General Practitioner</p>
+                <p><i class="fas fa-map-marker-alt"></i> New York, NY</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9am - 5pm</p>
+            </div>
+        </div>
+
+        <!-- About the Doctor Section -->
+        <div class="about-doctor">
+            <h3>About Dr. John Doe</h3>
+            <p>Dr. John Doe is a highly skilled and compassionate General Practitioner with over 15 years of experience. He specializes in providing comprehensive healthcare services and is dedicated to the well-being of his patients. Dr. Doe is committed to continuous learning and staying up-to-date with the latest advancements in medicine.</p>
+        </div>
+
+        <!-- Career Section -->
+        <div class="career-section">
+            <h3>Career Highlights</h3>
+            <div class="career-images">
+                <div class="career-image-box">
+                    <img src="images/career1.jpg" alt="Career Highlight 1">
+                </div>
+                <div class="career-image-box">
+                    <img src="images/career2.jpg" alt="Career Highlight 2">
+                </div>
+                <div class="career-image-box">
+                    <img src="images/career3.jpg" alt="Career Highlight 3">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="contact-section">
+            <h3>Contact Dr. John Doe</h3>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>FARMSCAPE</h2>
+                </div>
+                <div class="footer-sections">
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="../About_Us/About.html">about us</a></li>
+                            <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
+                            <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Get help</h4>
+                        <ul>
+                            <li><a href="../Find-Doctor/finddoctor.html">Find Doctors</a></li>
+                            <li><a href="../Farmer/Farmer.html">Your Profile</a></li>
+                            <li><a href="../Showdoctor_Page/showdoctorpage.html">Doctors</a></li>
+                            
+                            
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Online Shop</h4>
+                        <ul>
+                            <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
+                            <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

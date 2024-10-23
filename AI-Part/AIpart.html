@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="AIpart.css">
+    <title>Cow Detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/svg">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="sub-header">
+        <nav>
+            <a href="../index.html"><img src="../images/logo1.png" alt="Farmscape Logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Cow Detection</h1>
+    </section>
+
+    <!-- Main Content -->
+    <section class="cow-detection-container">
+        <div class="cow-detection-content">
+            <h1>🐄 Cow Detection in Cage</h1>
+
+            <!-- Image Upload Section -->
+            <div class="cow-detection-upload">
+                <label for="cow-image-upload">Upload Cage Image:</label>
+                <input type="file" id="cow-image-upload" accept="image/*" required>
+            </div>
+
+            <!-- Buttons for actions -->
+            <div class="cow-detection-buttons">
+                <button id="processButton">Process Image</button>
+                <button onclick="resetCowForm()">Reset</button>
+            </div>
+
+            <!-- Result Section -->
+            <div id="results"></div>
+            <br>
+            <div id="count"><h1></h1></div>
+            <img id="annotated_image" src="" style="display:none; max-width: 100%;">
+            <br>
+            <div id="textResults"></div> <!-- Container for displaying extracted text -->
+
+            <!-- Popup Message Section -->
+            <div id="cow-popup" class="cow-popup hidden">
+                <span id="cow-popup-message"></span>
+                <button onclick="closeCowPopup()">Close</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('processButton').addEventListener('click', async function () {
+            const fileInput = document.getElementById('cow-image-upload');
+            if (!fileInput.files.length) {
+                alert("Please upload an image.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            displayResults(data);
+        });
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>Detection Results:</h2>';
+            let detectedCowCount = 0;
+
+            data.results.forEach(result => {
+                resultsDiv.innerHTML += `<p>${result.name}: Confidence ${result.confidence.toFixed(2)}</p>`;
+
+                if (result.name.toLowerCase() === 'cow') {
+                    detectedCowCount += 1;
+                }
+            });
+
+            document.getElementById('count').querySelector('h1').innerHTML = `Detected Cow count: ${detectedCowCount}`;
+
+             // Display the annotated image
+    const annotatedImage = document.getElementById('annotated_image');
+    annotatedImage.src = data.annotated_image_url + '?t=' + new Date().getTime(); // Cache-busting technique
+    annotatedImage.style.display = 'block'; // Show the image
+
+
+            // Extracting the detected cage number from the text results
+            const textResultsDiv = document.getElementById('textResults');
+            textResultsDiv.innerHTML = '<h2>Extracted Text:</h2>';
+            data.text_results.forEach(text => {
+                textResultsDiv.innerHTML += `<p>Cage Number: ${text.text}</p>`;
+            });
+
+            if (data.text_results.length > 0) {
+                fetchCowCountFromDatabase(data.text_results[0].text, detectedCowCount);
+            } else {
+                resultsDiv.innerHTML += "<p>No cage number detected.</p>";
+            }
+        }
+
+        function fetchCowCountFromDatabase(cageNumber, detectedCowCount) {
+            fetch('fetch_cow_count.php?cage=' + cageNumber)
+                .then(response => response.json())
+                .then(data => {
+                    const actualCowCount = Number(data.actualCowCount);
+                    const detectedCowCount1 = Number(detectedCowCount);
+                  
+                    const comparisonResult = actualCowCount === detectedCowCount1 ?
+                        "All cows are in the cage." :
+                        `Mismatch: Detected ${detectedCowCount1}, Actual ${actualCowCount}`;
+
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML += `<p>${comparisonResult}</p>`;
+                });
+        }
+
+        function resetCowForm() {
+            document.getElementById('cow-image-upload').value = ''; // Clear the input
+            document.getElementById('results').innerHTML = ''; // Clear results
+            document.getElementById('count').querySelector('h1').innerHTML = ''; // Clear count display
+            document.getElementById('annotated_image').src = ''; // Clear the image source
+            document.getElementById('annotated_image').style.display = 'none'; // Hide the image
+            document.getElementById('textResults').innerHTML = ''; // Clear text results
+            // Optionally clear any additional state here
+        }
+        
+        function closeCowPopup() {
+            document.getElementById('cow-popup').classList.add('hidden');
+        }
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>FARMSCAPE</h2>
+                </div>
+                <div class="footer-sections">
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="../About_Us/About.html">about us</a></li>
+                            <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
+                            <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Get help</h4>
+                        <ul>
+                            <li><a href="../Find-Doctor/finddoctor.html">Find Doctors</a></li>
+                            <li><a href="../Farmer/Farmer.html">Your Profile</a></li>
+                            <li><a href="../Showdoctor_Page/showdoctorpage.html">Doctors</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Online Shop</h4>
+                        <ul>
+                            <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
+                            <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="productpage.css">
+    <link
+      rel="shortcut icon"
+      href="images/fav.png"
+      type="image/svg"
+    />
+</head>
+        
+
+<body>
+           
+    <section class="sub-header">
+
+        <nav>
+            <a herf="index.html"><img src="images/logo1.png"></a>
+             <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                      <ul>
+                        <li><a href="index.html">Home </a></li>
+                        <li><a href="About.html">About Us</a></li>
+                        <li><a href="productpage.html">Sell & Buy</a></li>
+                        
+                        <li><a href="">Sign UP</a></li>
+                      </ul>
+             </div>
+             <i class="fa fa-bars" onclick="showMenu()" ></i>
+        </nav>
+          <h1> Buy With Trust </h1>
+         </section>
+
+<!--+---------------------------------------------------------PRODUCT CART SECTION--------------------------------------------------->
+
+    <div class="product-container">
+        <!-- Repeat this block for 16 products -->
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <div class="product-card" onclick="showProductModal(1)">
+            <img src="product1.jpg" alt="Product 1" class="product-image">
+            <h2 class="product-title">Product 1</h2>
+            <p class="product-cost">$19.99</p>
+            <button class="buy-button">Buy Product</button>
+        </div>
+        <!-- ... repeat the above block 15 more times -->
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-product-title">Product Title</h2>
+            <div class="modal-images">
+                <img src="product1.jpg" alt="Product 1" class="modal-image">
+                <img src="product2.jpg" alt="Product 2" class="modal-image">
+                <!-- Additional images can be added here -->
+            </div>
+            <div class="product-info">
+                <p>Product information goes here. This is a brief description of the product.</p>
+            </div>
+            <button class="contact-seller-button">Contact Seller</button>
+        </div>
+    </div> 
+    <!--------------------------------------------------FOOTER SECTION---------------------------------------------------------------->
+
+    <script src="sellerscripts.js"></script>
+</body>
+</html>
+
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>FARMSCAPE</h2>
+            </div>
+            <div class="footer-sections">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="About.html">about us</a></li>
+                        <li><a href="ContactUs.html">Contact Us</a></li>
+                        <li><a href="privacypolicy.html">privacy policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get help</h4>
+                    <ul>
+                        <li><a href="finddoctor.html">Find Doctors</a></li>
+                        <li><a href="Farmer.html">Your Profile</a></li>
+                        <li><a href="showdoctorpage.html">Doctors</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Online Shop</h4>
+                    <ul>
+                        <li><a href="sellerstore.html">Become a Seller</a></li>
+                        <li><a href="productpage.html">Product Page</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+        </div>
+    </div>
+</footer> 
+<!--------------------------------------------------------------END FOOTER----------------------------------------------------->
+<script src="sellerscripts.js"></script> 
+<script>
+    var navLinks=document.getElementById("navLinks");
+    function showMenu(){
+        navLink.style.right="0";
+
+    }
+    function hideMenu(){
+        navLinks.style.right="-200px";
+    }
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,123 @@
+/* Resetting default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+/* Sub-Header Section */
+.sub-header {
+    background-color: #4b0082;
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+}
+
+.sub-header h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+/* About Us Section */
+.about-us {
+    padding: 50px 80px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.about-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.about-col {
+    flex-basis: 48%;
+}
+
+.about-col h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-col p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.about-col img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Team Section */
+.team-section {
+    background-color: #f0f8ff;
+    padding: 50px 80px;
+}
+
+.team-section h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+    color: #333;
+    text-align: center;
+}
+
+.team-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-col {
+    flex-basis: 23%;
+    text-align: center;
+}
+
+.team-col img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-col h3 {
+    font-size: 22px;
+    margin-top: 15px;
+    color: #333;
+}
+
+.team-col p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Mission & Vision Sections */
+.mission-section, .vision-section {
+    padding: 50px 80px;
+    background-color: #fff;
+}
+
+.mission-section h2, .vision-section h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.mission-section p, .vision-section p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}

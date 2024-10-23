@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="about-us.css"> <!-- New CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <title>ABOUT US</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/svg">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo1.png" alt="Farmscape Logo"></a> <!-- Fixed 'herf' to 'href' -->
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="productpage.html">Sell & Buy</a></li>
+                    <li><a href="/login/login.html">Login</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>About Us</h1>
+    </section>
+
+    <!-- About Us Content -->
+    <section class="about-us">
+        <div class="about-row">
+            <div class="about-col">
+                <h1>We Provide the Best Farming Solutions</h1>
+                <p>We are dedicated to improving the lives of farmers by providing cutting-edge solutions that enhance productivity and sustainability. Our mission is to empower the agricultural community with the tools and resources needed to thrive in a modern world.</p>
+            </div>
+            <div class="about-col">
+                <img src="images/about.jpg" alt="About Us Image">
+            </div>
+        </div>
+
+        <!-- Our Team Section -->
+        <section class="team-section">
+            <h2>Meet Our Team</h2>
+            <div class="team-row">
+                <div class="team-col">
+                    <img src="images/team1.jpg" alt="Team Member 1">
+                    <h3>John Doe</h3>
+                    <p>CEO & Founder</p>
+                </div>
+                <div class="team-col">
+                    <img src="images/team2.jpg" alt="Team Member 2">
+                    <h3>Jane Smith</h3>
+                    <p>Lead Developer</p>
+                </div>
+                <div class="team-col">
+                    <img src="images/team3.jpg" alt="Team Member 3">
+                    <h3>Michael Lee</h3>
+                    <p>Design Expert</p>
+                </div>
+                <div class="team-col">
+                    <img src="images/team4.jpg" alt="Team Member 4">
+                    <h3>Sarah Kim</h3>
+                    <p>Marketing Specialist</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Mission Section -->
+        <section class="mission-section">
+            <h2>Our Mission</h2>
+            <p>Our mission is to bridge the gap between traditional farming and modern technology. By providing innovative solutions, we aim to make farming more efficient, sustainable, and profitable for everyone involved. We believe in a future where technology and agriculture work hand in hand to create a better world.</p>
+        </section>
+
+        <!-- Our Vision Section -->
+        <section class="vision-section">
+            <h2>Our Vision</h2>
+            <p>We envision a world where every farmer has access to the latest technology and tools that allow them to produce more with less. Our vision is to create a sustainable future where farming is not just a profession, but a passion driven by innovation and care for the environment.</p>
+        </section>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>FARMSCAPE</h2>
+                </div>
+                <div class="footer-sections">
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="About.html">About Us</a></li>
+                            <li><a href="ContactUs.html">Contact Us</a></li>
+                            <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Get Help</h4>
+                        <ul>
+                            <li><a href="finddoctor.html">Find Doctors</a></li>
+                            <li><a href="Farmer.html">Your Profile</a></li>
+                            <li><a href="showdoctorpage.html">Doctors</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Online Shop</h4>
+                        <ul>
+                            <li><a href="sellerstore.html">Become a Seller</a></li>
+                            <li><a href="productpage.html">Product Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for toggle menu -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script>
+</body>
+
+</html>

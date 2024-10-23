@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Doctor</title>
+    <link rel="stylesheet" href="finddoctor.css">
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+
+
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link
+    rel="shortcut icon"
+    href="images/fav.png"
+    type="image/svg"
+  /> <style>
+    #map {
+        height: 400px; /* Adjust the height as needed */
+        width: 100%;
+    }
+
+    .popup-btn {
+        margin-top: 5px;
+        display: block;
+        text-align: center;
+        background-color: #007BFF;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .popup-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <section class="sub-header">
+
+        <nav>
+            <a herf="../index.html"><img src="../images/logo1.png"></a>
+             <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                      <ul>
+                        <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
+                        
+                    
+                      </ul>
+             </div>
+             <i class="fa fa-bars" onclick="showMenu()" ></i>
+        </nav>
+          <h1>Find your Doctor </h1>
+         </section> 
+         <!------------------------------------------------------------------------------------------------------------------>
+    <div class="mapsapi">
+        <h1>Now you can easily find your doctor</h1>
+
+        <!-- Location Search Section -->
+         <!--<div class="location-search">
+            <input type="text" id="location-input" placeholder="Enter your location">
+            <button id="find-location-button">Find Nearby Veterinary Shops</button>
+        </div>-->
+        <div id="map">
+
+            <div id="doctorsList"></div>
+
+
+        </div>
+
+        <!-- Doctor Search Section -->
+        <div class="doctor-search">
+            <!--<input type="text" id="doctor-search-input" placeholder="Enter doctor's name">-->
+            <button id="find-doctor-button">Find Doctor</button>
+        </div>
+        <div id="doctor-results"></div>
+    </div>
+    <!--<script src="script.js"></script>-->
+    <script>
+        // Function to calculate distance between two coordinates
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                0.5 - Math.cos(dLat) / 2 +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                (1 - Math.cos(dLon)) / 2;
+
+            return R * 2 * Math.asin(Math.sqrt(a));
+        }
+
+        // Fetch nearby doctors based on user's location
+        function getNearbyDoctors(latitude, longitude) {
+            $.ajax({
+                url: 'get_nearby_doctors.php',
+                type: 'POST',
+                data: {
+                    latitude: latitude,
+                    longitude: longitude
+                },
+                success: function (response) {
+                    const doctors = JSON.parse(response);
+                    const doctorsList = $('#doctorsList');
+                    doctorsList.empty();
+
+                    // Loop through each doctor and add marker to the map
+                    doctors.forEach(doctor => {
+                        const distance = getDistance(latitude, longitude, doctor.latitude, doctor.longitude);
+                        if (distance <= 15) { // Distance threshold (in km)
+                            // Add marker for each doctor with a popup that includes the call/message buttons
+                            const popupContent = `
+                                <strong>${doctor.username}</strong><br>
+                                ${distance.toFixed(2)} km away<br>
+                                
+                                <a href="tel:${doctor.telephone}" class="popup-btn">Call Doctor</a><br>
+                                
+                                <a href="#" onclick="openChatWindow(${doctor.id})" class="popup-btn">Chat with Doctor</a>
+
+                                
+                            `;
+                            //above one for open chat window
+
+                            L.marker([doctor.latitude, doctor.longitude]).addTo(map)
+                                .bindPopup(popupContent)
+                                .openPopup();
+                        }
+                    });
+                }
+            });
+        }
+
+        // Initialize the map
+        let map = L.map('map').setView([0, 0], 13); // Default center, will be updated with user's location
+
+        // Load and display tile layers on the map (OpenStreetMap tiles)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        $(document).ready(function () {
+            // Custom red marker icon for the user's location
+            const redIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                shadowSize: [41, 41]
+            });
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Update map center to user's location
+                    map.setView([latitude, longitude], 13);
+
+                    // Add marker for the user's current location
+                    L.marker([latitude, longitude], { icon: redIcon }).addTo(map)
+                        .bindPopup("You are here!")
+                        .openPopup();
+
+                    // Fetch and display nearby doctors
+                    getNearbyDoctors(latitude, longitude);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+        function openChatWindow(doctorId) {
+            // Create a simple chat window or redirect to a chat page
+            const chatWindow = window.open("", "_blank", "width=400,height=600");
+            chatWindow.document.write('<h2>Chat with Doctor</h2>');
+        
+            // Create input for sending messages
+            chatWindow.document.write('<textarea id="messageInput" placeholder="Type your message..."></textarea><br>');
+            chatWindow.document.write('<button onclick="sendMessage(' + doctorId + ')">Send Message</button>');
+        
+            // Fetch and display chat messages
+            fetchMessages(doctorId, chatWindow);
+        }
+        
+        function sendMessage(doctorId) {
+            const message = document.getElementById('messageInput').value;
+        
+            $.ajax({
+                url: 'send_message.php',
+                type: 'POST',
+                data: {
+                    doctorId: doctorId,
+                    message: message
+                },
+                success: function(response) {
+                    const result = JSON.parse(response);
+                    if (result.status === 'Message sent successfully') {
+                        alert('Message sent!');
+                        document.getElementById('messageInput').value = ''; // Clear input after sending
+                    } else {
+                        alert('Error sending message.');
+                    }
+                }
+            });
+        }
+        
+        function fetchMessages(doctorId, chatWindow) {
+            $.ajax({
+                url: 'get_messages.php',
+                type: 'GET',
+                data: { doctorId: doctorId },
+                success: function(response) {
+                    const messages = JSON.parse(response);
+                    messages.forEach(msg => {
+                        chatWindow.document.write('<p>' + msg.message + '</p>'); // Display each message
+                    });
+                }
+            });
+        }
+        
+        
+    </script>
+</body>
+</html>
+<!-------------------------------------------------------------------------------------------------------------------------------------->
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>FARMSCAPE</h2>
+            </div>
+            <div class="footer-sections">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../About_Us/About.html">about us</a></li>
+                        <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
+                        <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get help</h4>
+                    <ul>
+                        <li><a href="../Find-Doctor/finddoctor.html">Find Doctors</a></li>
+                        <li><a href="../Farmer/Farmer.html">Your Profile</a></li>
+                        <li><a href="../Showdoctor_Page/showdoctorpage.html">Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Online Shop</h4>
+                    <ul>
+                        <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
+                        <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

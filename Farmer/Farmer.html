@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style.css">
+    <title>YOUR PROFILE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="Farmer.css">
+    <link
+      rel="shortcut icon"
+      href="images/fav.png"
+      type="image/svg"
+    />
+    <!-- Include SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Include jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+</head>
+        
+
+<body>
+    
+        
+    <section class="sub-header">
+
+        <nav>
+            <a herf="../index.html"><img src="../images/logo1.png"></a>
+             <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                      <ul>
+                        <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
+
+                    
+                        <li><a href="">Growth</a></li>
+                        
+                      </ul>
+             </div>
+             <i class="fa fa-bars" onclick="showMenu()" ></i>
+        </nav>
+          <h1> Reduce workload, optimize operations, and <br>maximize your farm's potential.</h1>
+          <br>
+          <br>
+          <h2>Register As A Farmer</h2>
+         </section>
+<!--------------------------------------------------------------------------------------------------------------------------------->
+
+<body>
+    <div class="abc">
+
+        <!-- Profile Picture and Information Section -->
+        <form id="farmer-registration-form" enctype="multipart/form-data">
+            <!-- Profile Picture and Information Section -->
+            <div class="profile-info">
+                <div class="profile-pic">
+                    <input type="file" id="profile-pic-input" name="profile_pic" accept="image/*">
+                    <label for="profile-pic-input">Upload Profile Photo</label>
+                    <img id="profile-pic" src="" alt="Profile Picture">
+                </div>
+                <div class="farmer-details">
+                    <input type="text" id="name" name="name" placeholder="Full Name" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="text" id="address" name="address" placeholder="Address" required>
+                    <input type="text" id="telephone" name="telephone" placeholder="Phone Number" required>
+                    
+                    <!-- Farm ID Field for Farmers -->
+                    <input type="text" id="farm_id" name="farm_id" placeholder="Farm Registration Number" required> <!-- New field added -->
+        
+                    <!-- Role is fixed to Farmer for Farmer Registration -->
+                    <input type="hidden" id="role" name="role" value="farmer">
+                </div>
+            </div>
+        
+            <!-- Additional Information Section -->
+            <div class="info-section">
+                <textarea id="farmer-info" name="farmer_info" placeholder="Additional Information (e.g., farm details, experience, etc.)"></textarea>
+            </div>
+        
+            
+            <!-- Save Profile Button -->
+            <button id="save-profile-button" class="save-profile-button" type="submit">Save Profile</button>
+        </form>
+        
+            
+    </div>
+    <!--<script src="script.js"></script>-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Profile picture preview
+            const profilePicInput = document.getElementById('profile-pic-input');
+            const profilePicPreview = document.getElementById('profile-pic');
+        
+            profilePicInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePicPreview.src = e.target.result;
+                        profilePicPreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        
+           
+        });
+    
+        // Submit form using AJAX
+        $(document).ready(function() {
+            $('#farmer-registration-form').on('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting the traditional way
+    
+                // Create FormData object to send file and form data
+                var formData = new FormData(this);
+    
+                $.ajax({
+                    url: 'farmersave.php', // PHP file to handle the form submission
+                    type: 'POST',
+                    data: formData,
+                    contentType: false, // These two settings are necessary for file uploads
+                    processData: false,
+                    success: function(response) {
+                        // Parse the response from PHP
+                        if (response === 'success') {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Farmer profile saved successfully!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Error: ' + response,
+                                icon: 'error',
+                                confirmButtonText: 'Try Again'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Something went wrong! ' + error,
+                            icon: 'error',
+                            confirmButtonText: 'Try Again'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    
+
+</body>
+</html>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>FARMSCAPE</h2>
+            </div>
+            <div class="footer-sections">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../About_Us/About.html">about us</a></li>
+                        <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
+                        <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get help</h4>
+                    <ul>
+                        <li><a href="../Find-Doctor/finddoctor.html">Find Doctors</a></li>
+                        <li><a href="../Farmer/Farmer.html">Your Profile</a></li>
+                        <li><a href="../Showdoctor_Page/showdoctorpage.html">Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Online Shop</h4>
+                    <ul>
+                        <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
+                        <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

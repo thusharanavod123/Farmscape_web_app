@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style.css">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="productpage.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/svg" />
+</head>
+
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="../index.html"><img src="../images/logo1.png" alt="Logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="productpage.html">Sell & Buy</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1> Buy With Trust </h1>
+    </section>
+
+    <!-- Product Container -->
+    <div class="product-container" id="product-container">
+        <!-- Product cards will be injected here by JavaScript -->
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-product-title">Product Title</h2>
+            <div class="modal-images">
+                <img src="" alt="" class="modal-image">
+            </div>
+            <div class="product-info">
+                <p>Product information goes here. This is a brief description of the product.</p>
+            </div>
+            <button class="contact-seller-button">Contact Seller</button>
+        </div>
+    </div>
+
+    <!--------------------------------------------------FOOTER SECTION---------------------------------------------------------------->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>FARMSCAPE</h2>
+                </div>
+                <div class="footer-sections">
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="../About_Us/About.html">about us</a></li>
+                            <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
+                            <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Get help</h4>
+                        <ul>
+                            <li><a href="../Find-Doctor/finddoctor.html">Find Doctors</a></li>
+                            <li><a href="../Farmer/Farmer.html">Your Profile</a></li>
+                            <li><a href="../Showdoctor_Page/showdoctorpage.html">Doctors</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Online Shop</h4>
+                        <ul>
+                            <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
+                            <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!--------------------------------------------------------------END FOOTER----------------------------------------------------->
+
+    <script src="sellerscripts.js"></script>
+    <script>
+        async function fetchProducts() {
+            try {
+                const response = await fetch('getProducts.php'); // Adjust the path as necessary
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const products = await response.json();
+                console.log(products); // Log products to see their structure
+                renderProducts(products);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+        function renderProducts(products) {
+            const container = document.getElementById('product-container');
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.onclick = () => showProductModal(product.id, product.image, product.description);
+                
+                // Ensure product.cost is a number
+                const cost = Number(product.cost); // Convert to number
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    <h2 class="product-title">${product.title}</h2>
+                    <p class="product-cost">${isNaN(cost) ? 'N/A' : cost.toFixed(2)}</p> <!-- Fallback for NaN -->
+                    <button class="buy-button">Buy Product</button>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+        
+
+        function showProductModal(productId, image, description) {
+            document.getElementById('modal-product-title').innerText = productId; // Update with product title if available
+            document.querySelector('.modal-images').innerHTML = `<img src="${image}" alt="Product" class="modal-image">`;
+            document.querySelector('.product-info p').innerText = description;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+
+        var navLinks = document.getElementById("navLinks");
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+
+        // Fetch products on page load
+        window.onload = fetchProducts;
+    </script>
+</body>
+</html>

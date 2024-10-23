@@ -1,0 +1,158 @@
+/* Resetting default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body1 {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e0f7fa; /* Light Teal Background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('https://example.com/farm-background.jpg'); /* Farm Background Image */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Main Container Styling */
+.cow-detection-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content Box Styling */
+.cow-detection-content {
+    background-color: rgba(255, 255, 255, 0.8); /* White Background with Transparency */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px; /* Adjusted for better center alignment */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+}
+
+.cow-detection-content h1 {
+    font-size: 26px;
+    color: #4b0082; /* Indigo Color */
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cow-detection-upload {
+    margin-bottom: 20px;
+}
+
+/* Input Fields Styling */
+input[type="number"], input[type="file"] {
+    padding: 14px;
+    margin: 10px 0;
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus, input[type="file"]:focus {
+    border-color: #4b0082; /* Indigo Border on Focus */
+}
+
+/* Button Styling */
+.cow-detection-buttons button {
+    padding: 12px 30px;
+    margin: 15px;
+    border: none;
+    background-color: #4b0082; /* Indigo Color */
+    color: #fff;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cow-detection-buttons button:hover {
+    background-color: #9400d3; /* Darker Purple on Hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Popup Styling */
+.cow-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffeb3b; /* Yellow Background */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: none;
+    backdrop-filter: blur(5px); /* Glass Effect for Pop-up */
+    border: 2px solid #4b0082; /* Indigo Border */
+}
+
+.cow-popup span {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+}
+
+.cow-popup button {
+    padding: 10px 25px;
+    border: none;
+    background-color: #4b0082;
+    color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cow-popup button:hover {
+    background-color: #9400d3;
+}
+
+/* Hidden Class for Popup */
+.hidden {
+    display: none;
+}
+
+/* Additional Farm-Themed Enhancements */
+
+/* Farm-Themed Icons for Buttons */
+.cow-detection-buttons button::before {
+    content: '🐄'; /* Cow Emoji Before Button Text */
+    margin-right: 8px;
+}
+
+.cow-popup button::before {
+    content: '✅'; /* Checkmark Before Popup Button Text */
+    margin-right: 5px;
+}
+
+/* Border Styles to Match Farm Theme */
+.cow-detection-content {
+    border: 2px solid #8b4513; /* Saddle Brown Border to Resemble Wood */
+}
+
+input[type="number"], input[type="file"] {
+    border: 2px solid #8b4513; /* Matching Border Style */
+}
+
+/* Typography Enhancements */
+.cow-detection-content p {
+    font-size: 18px;
+    color: #6b8e23; /* Olive Green Text */
+    font-style: italic;
+    margin-bottom: 15px;
+}

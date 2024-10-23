@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="AIpart.css">
+    <title>Cow Detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/svg">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo1.png" alt="Farmscape Logo"></a> 
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home </a></li>
+                        <li><a href="About.html">About Us</a></li>
+                        <li><a href="productpage.html">Sell & Buy</a></li>
+                        
+                        <li><a href="/login/login.html">Login</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Cow Detection</h1>
+    </section>
+
+    <!-- Main Content -->
+     <body1>
+        
+            <!-- Main Section -->
+            <section class="cow-detection-container">
+                <div class="cow-detection-content">
+                    <h1>🐄 Cow Detection in Cage</h1>
+        
+                    <!-- Image Upload Section -->
+                    <div class="cow-detection-upload">
+                        <label for="cow-cage-number">Cage Number:</label>
+                        <input type="number" id="cow-cage-number" placeholder="Enter Cage Number" required>
+                        <br><br>
+        
+                        <label for="cow-image-upload">Upload Cage Image:</label>
+                        <input type="file" id="cow-image-upload" accept="image/*" required>
+                    </div>
+        
+                    <!-- Buttons for actions -->
+                    <div class="cow-detection-buttons">
+                        <button onclick="processCowImage()">Process Image</button>
+                        <button onclick="resetCowForm()">Reset</button>
+                    </div>
+        
+                    <!-- Popup Message Section -->
+                    <div id="cow-popup" class="cow-popup hidden">
+                        <span id="cow-popup-message"></span>
+                        <button onclick="closeCowPopup()">Close</button>
+                    </div>
+                </div>
+            </section>
+        
+            <script src="cow-detection.js"></script>
+        
+</body1>
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>FARMSCAPE</h2>
+                </div>
+                <div class="footer-sections">
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="About.html">About Us</a></li>
+                            <li><a href="ContactUs.html">Contact Us</a></li>
+                            <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Get Help</h4>
+                        <ul>
+                            <li><a href="finddoctor.html">Doctors</a></li>
+                            <li><a href="Farmer.html">Your Profile</a></li>
+                            <li><a href="Growth.html">Growth</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Online Shop</h4>
+                        <ul>
+                            <li><a href="sellerstore.html">Become a Seller</a></li>
+                            <li><a href="#">Bag</a></li>
+                            <li><a href="#">Shoes</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
