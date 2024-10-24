@@ -18,7 +18,7 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role ENUM('doctor', 'farmer', 'ai_technician', 'admin') NOT NULL,
-  farm_id INT DEFAULT NULL, -- Farm ID for farmers only
+  farm_id INT UNIQUE DEFAULT NULL, -- Farm ID for farmers only
   address VARCHAR(255) DEFAULT NULL,
   telephone VARCHAR(15),
   additional_info TEXT,
@@ -38,7 +38,8 @@ if (mysqli_query($conn, $sql)) {
 
 
 $sql2="CREATE TABLE IF NOT EXISTS feeding_management (
-    cow_id INT UNIQUE PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique primary key
+    cow_id INT NOT NULL, 
     user_id INT NOT NULL,
     feed_type VARCHAR(255),
     quantity VARCHAR(255),
@@ -55,7 +56,8 @@ if (mysqli_query($conn, $sql2)) {
 
 
 $sql3="CREATE TABLE IF NOT EXISTS vaccination_schedule (
-    cow_id INT UNIQUE PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique primary key
+    cow_id INT NOT NULL,
     user_id INT NOT NULL,
     date DATE,
     vaccine VARCHAR(255),
@@ -70,7 +72,8 @@ echo "Error creating table 'vaccination_schedule': " . mysqli_error($conn) . "<b
 }
 
 $sql4="CREATE TABLE IF NOT EXISTS milk_yield (
-    cow_id INT UNIQUE PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique primary key
+    cow_id INT NOT NULL ,
     user_id INT NOT NULL,
     date DATE,
     yield DECIMAL(10,2),
@@ -85,7 +88,7 @@ echo "Error creating table 'milk_yield': " . mysqli_error($conn) . "<br>";
 
 $sql5 = "CREATE TABLE IF NOT EXISTS cages (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  cage_number VARCHAR(50) NOT NULL UNIQUE, -- Unique cage number
+  cage_number VARCHAR(50) NOT NULL , 
   number_of_cows INT NOT NULL, -- Number of cows in the cage
   user_id INT NOT NULL, -- Reference to the users table
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -114,6 +117,21 @@ if(mysqli_query($conn,$sql6)){
   echo "Error creating table 'marketPlace': " . mysqli_error($conn) . "<br>";
 
 }
+
+$sql7 = "CREATE TABLE IF NOT EXISTS messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+if(mysqli_query($conn,$sql7)){
+echo"Table 'messages' created successfully or already exists<br>";
+}else{
+
+echo "Error creating table 'messages': " . mysqli_error($conn) . "<br>";
+
+}
+
+
 
 // Close connection
 mysqli_close($conn);
