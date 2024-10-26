@@ -132,6 +132,25 @@ echo "Error creating table 'messages': " . mysqli_error($conn) . "<br>";
 }
 
 
+$sql8 = "CREATE TABLE IF NOT EXISTS AI_management (
+  id INT AUTO_INCREMENT PRIMARY KEY,          -- Unique primary key
+  cow_id INT NOT NULL,                        -- Cow ID related to AI management
+  farmer_id INT NOT NULL,                     -- Farmer ID
+  technician_id INT NOT NULL,                 -- AI technician ID
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp when the entry is created
+  note TEXT,                                  -- Any relevant notes
+  next_due_date DATE,                         -- Date for the next AI-related task
+  FOREIGN KEY (farmer_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,    -- Foreign key for farmer
+  FOREIGN KEY (technician_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE -- Foreign key for AI technician
+)";
+
+if (mysqli_query($conn, $sql8)) {
+echo "Table 'AI_management' created successfully or already exists<br>";
+} else {
+echo "Error creating table 'AI_management': " . mysqli_error($conn) . "<br>";
+}
+
+
 
 // Close connection
 mysqli_close($conn);

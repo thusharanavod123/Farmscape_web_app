@@ -6,8 +6,15 @@ if (!isset($_SESSION['user_id'])) {
     // If not logged in, redirect to registration page
     header("Location: Farmer.html");
     exit();
-
 }
+
+// Check if the user is a farmer
+if ($_SESSION['role'] !== 'farmer') {
+    // If not a farmer, redirect to a different page (e.g., an error page or home page)
+    header("Location: Farmer.html");
+    exit();
+}
+
 
 
 $servername = "localhost";

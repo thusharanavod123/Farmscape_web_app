@@ -95,8 +95,21 @@
                     icon: 'success',
                     confirmButtonText: 'Continue'
                 }).then(() => {
-                    // Redirect after showing the message
-                    window.location.href = '../index.html';  // Redirect to the homepage
+                     // Redirect after showing the message
+                     if (data.role === 'admin') {
+                        window.location.href = '../Admin_Panel/admin.html';  // Redirect to the admin dashboard
+                     }
+                     else if  (data.role === 'farmer') {
+                        window.location.href = '../Farmer/FarmerProfile.php';  // Redirect to the admin dashboard 
+                     }
+                     else if  (data.role === 'ai_technician') {
+                        window.location.href = '../AItechnicianupdate/AITechnicianProfile.php';  // Redirect to the admin dashboard 
+                        
+
+
+                    } else {
+                        window.location.href = '../index.html';  // Redirect to the homepage for other roles
+                    }
                 });
 
             } else {
