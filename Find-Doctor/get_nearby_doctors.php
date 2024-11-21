@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
 
-    $sql = "SELECT id, username, latitude, longitude,telephone FROM users WHERE role = 'doctor' AND latitude IS NOT NULL AND longitude IS NOT NULL";
+    $sql = "SELECT id, username, latitude, longitude,telephone,additional_info FROM users WHERE role = 'doctor' AND latitude IS NOT NULL AND longitude IS NOT NULL";
     $result = $conn->query($sql);
 
     $doctors = array();

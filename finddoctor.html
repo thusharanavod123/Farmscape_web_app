@@ -1,100 +1,92 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Doctor</title>
-    <link rel="stylesheet" href="finddoctor.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
-    <link
-    rel="shortcut icon"
-    href="images/fav.png"
-    type="image/svg"
-  />
+    <title>Find All Doctors</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <style>
+        #map {
+            height: 500px; /* Adjust height as needed */
+            width: 100%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .doctor-list {
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
-    <section class="sub-header">
+    <h1 style="text-align: center;">Find All Doctors</h1>
+    <div id="map"></div>
+    <div class="doctor-list" id="doctor-results"></div>
 
-        <nav>
-            <a herf="index.html"><img src="images/logo1.png"></a>
-             <div class="nav-links" id="navLinks">
-                <i class="fa fa-times" onclick="hideMenu()"></i>
-                      <ul>
-                        <li><a href="index.html">Home </a></li>
-                        <li><a href="About.html">About Us</a></li>
-                        <li><a href="productpage.html">Sell & Buy</a></li>
-                        
-                        <li><a href="">Sign UP</a></li>
-                      </ul>
-             </div>
-             <i class="fa fa-bars" onclick="showMenu()" ></i>
-        </nav>
-          <h1>Find your Doctor </h1>
-         </section> 
-         <!------------------------------------------------------------------------------------------------------------------>
-    <div class="mapsapi">
-        <h1>Now you can easily find your doctor</h1>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([20, 78], 5); // Set initial center and zoom level
 
-        <!-- Location Search Section -->
-        <div class="location-search">
-            <input type="text" id="location-input" placeholder="Enter your location">
-            <button id="find-location-button">Find Nearby Veterinary Shops</button>
-        </div>
-        <div id="map"></div>
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-        <!-- Doctor Search Section -->
-        <div class="doctor-search">
-            <input type="text" id="doctor-search-input" placeholder="Enter doctor's name">
-            <button id="find-doctor-button">Find Doctor</button>
-        </div>
-        <div id="doctor-results"></div>
-    </div>
-    <script src="script.js"></script>
+        // Fetch doctors and add markers
+        function loadDoctors() {
+            $.ajax({
+                url: 'get_all_doctors.php',
+                method: 'GET',
+                success: function(response) {
+                    const doctors = JSON.parse(response);
+                    console.log("Doctors Data:", doctors); // Debugging
+
+                    const doctorResults = $('#doctor-results');
+                    doctorResults.empty(); // Clear previous results
+
+                    doctors.forEach(doctor => {
+                        const latitude = parseFloat(doctor.latitude);
+                        const longitude = parseFloat(doctor.longitude);
+
+                        if (!isNaN(latitude) && !isNaN(longitude)) {
+                            // Add marker to map
+                            const marker = L.marker([latitude, longitude]).addTo(map);
+                            const popupContent = `
+                                <strong>${doctor.username}</strong><br>
+                                Phone: <a href="tel:${doctor.telephone}">${doctor.telephone}</a><br>
+                                Location: [${latitude}, ${longitude}]
+                            `;
+                            marker.bindPopup(popupContent);
+
+                            // Add doctor details below the map
+                            const doctorInfo = `
+                                <div>
+                                    <h3>${doctor.username}</h3>
+                                    <p>Phone: <a href="tel:${doctor.telephone}">${doctor.telephone}</a></p>
+                                    <p>Location: [${latitude}, ${longitude}]</p>
+                                    <hr>
+                                </div>
+                            `;
+                            doctorResults.append(doctorInfo);
+                        } else {
+                            console.warn(`Invalid coordinates for doctor: ${doctor.username}`);
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching doctors:", error);
+                }
+            });
+        }
+
+        // Load doctors on page load
+        $(document).ready(function() {
+            loadDoctors();
+        });
+    </script>
 </body>
 </html>
-<!-------------------------------------------------------------------------------------------------------------------------------------->
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h2>FARMSCAPE</h2>
-            </div>
-            <div class="footer-sections">
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="About.html">about us</a></li>
-                        <li><a href="ContactUs.html">Contact Us</a></li>
-                        <li><a href="privacypolicy.html">privacy policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Get help</h4>
-                    <ul>
-                        <li><a href="finddoctor.html">Find Doctors</a></li>
-                        <li><a href="Farmer.html">Your Profile</a></li>
-                        <li><a href="showdoctorpage.html">Doctors</a></li>
-                        
-                        
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Online Shop</h4>
-                    <ul>
-                        <li><a href="sellerstore.html">Become a Seller</a></li>
-                        <li><a href="productpage.html">Product Page</a></li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 FARMSCAPE. All rights reserved.</p>
-        </div>
-    </div>
-</footer>

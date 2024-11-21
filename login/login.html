@@ -100,14 +100,17 @@
                         window.location.href = '../Admin_Panel/admin.html';  // Redirect to the admin dashboard
                      }
                      else if  (data.role === 'farmer') {
-                        window.location.href = '../Farmer/FarmerProfile.php';  // Redirect to the admin dashboard 
+                        window.location.href = '../Farmer/FarmerProfile.php';   
                      }
                      else if  (data.role === 'ai_technician') {
-                        window.location.href = '../AItechnicianupdate/AITechnicianProfile.php';  // Redirect to the admin dashboard 
+                        window.location.href = '../AItechnicianupdate/AITechnicianProfile.php';  
                         
-
-
-                    } else {
+                    } 
+                    else if  (data.role === 'doctor') {
+                        window.location.href = '../Doctor-Login/DoctorProfile.php';  
+                     }
+                     
+                     else {
                         window.location.href = '../index.html';  // Redirect to the homepage for other roles
                     }
                 });

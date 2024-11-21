@@ -102,7 +102,7 @@ $conn->close();
         .main-content {
             margin-left: 250px;
             padding: 20px;
-            flex-grow: 3;
+            flex-grow: 0;
         }
 
         /* Button styles */
@@ -165,7 +165,7 @@ $conn->close();
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
-        <h1>Welcome, <?php echo $_SESSION['username']; ?>, to Your AI Technician Profile</h1>
+        <h1>Welcome  <?php echo $_SESSION['username']; ?>, to Your AI Technician Profile</h1>
         <p>Email: <?php echo $email; ?></p>
         <p>User ID: <?php echo $id; ?></p>
     </section>
@@ -173,15 +173,18 @@ $conn->close();
     <div class="container1">
       
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <h2>AI Technician Dashboard</h2>
-            <p>Manage your AI treatments and reports here.</p>
-            <div class="button-container">
-                <a href="view_ai_treatment.php" class="nav-button">View AI Reports</a>
-                <a href="add_ai_treatment.php" class="nav-button">Add AI Treatment</a>
-            </div>
-        </div>
+       <!-- Main Content -->
+<div class="main-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 30vh;">
+    <h2>AI Technician Dashboard</h2>
+    <p>Manage your AI treatments and reports here.</p>
+
+    <!-- Button Container -->
+    <div class="button-container" style="display: flex; gap: 15px; justify-content: center;">
+        <a href="view_ai_treatment.php" class="nav-button">View AI Reports</a>
+        <a href="add_ai_treatment.php" class="nav-button">Add AI Treatment</a>
+    </div>
+</div>
+
     </div>
 
     <script>

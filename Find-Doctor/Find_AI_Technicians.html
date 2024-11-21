@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find AI Technicians</title>
+    <link rel="stylesheet" href="findtechnicians.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/svg" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+      
+        .popup-btn {
+          margin-top: 10px;
+          display: inline-block;
+          text-align: center;
+          background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+          color: #fff;
+          font-weight: bold;
+          font-size: 14px;
+          padding: 8px 15px;
+          border: none;
+          border-radius: 25px;
+          text-decoration: none;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          transition: all 0.3s ease;
+      }
+      
+      .popup-btn:hover {
+          background: linear-gradient(90deg, #92FE9D 0%, #00C9FF 100%);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+          transform: scale(1.05);
+          color: #000;
+      }
+    </style>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="../index.html"><img src="../images/logo1.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../About_Us/About.html">About Us</a></li>
+                    <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Locate AI Technicians Around You</h1>
+    </section> 
+
+    <div class="mapsapi">
+        <div id="map"></div>
+      
+    </div>
+
+    <script>
+        // Fetch all AI technicians and place them on the map
+        function loadTechnicians() {
+            $.ajax({
+                url: 'get_all_technicians.php', // Backend endpoint to fetch technician data
+                type: 'GET',
+                success: function(response) {
+                    const technicians = JSON.parse(response);
+                    const technicianResults = $('#technician-results');
+                    technicianResults.empty(); // Clear previous results
+
+                    technicians.forEach(technician => {
+                        const latitude = parseFloat(technician.latitude);
+                        const longitude = parseFloat(technician.longitude);
+                        if (!isNaN(latitude) && !isNaN(longitude)) {
+                          const marker = L.marker([latitude, longitude]).addTo(map);
+                          const popupContent = `
+                               <div style="text-align: center;">
+        <strong>${technician.username}</strong>
+    </div>
+                              Contact: <a href="tel:${technician.telephone}">${technician.telephone}</a><br>
+                              About AI Technician:${technician.additional_info}<br>
+                              <a href="https://wa.me/${technician.telephone}?text=Hello%20${technician.username},%20I%20would%20like%20to%20discuss%20AI%20services." 
+                                 target="_blank" class="popup-btn">Chat with Technician on WhatsApp</a>
+                          `;
+                          marker.bindPopup(popupContent);
+                      }
+                      
+                       
+                           
+                        
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching technician data:", error);
+                }
+            });
+        }
+
+        // Initialize the map
+        const map = L.map('map').setView([20, 78], 5); // Default center (India), adjust as necessary
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        $(document).ready(function() {
+            loadTechnicians(); // Fetch and display all AI technicians on map
+        });
+
+        function openChatWindow(technicianId) {
+            const chatWindow = window.open("", "_blank", "width=400,height=600");
+            chatWindow.document.write('<h2>Chat with Technician</h2>');
+            chatWindow.document.write('<textarea id="messageInput" placeholder="Type your message..."></textarea><br>');
+            chatWindow.document.write('<button onclick="sendMessage(' + technicianId + ')">Send Message</button>');
+            fetchMessages(technicianId, chatWindow);
+        }
+
+        function sendMessage(technicianId) {
+            const message = document.getElementById('messageInput').value;
+            $.ajax({
+                url: 'send_message.php',
+                type: 'POST',
+                data: { technicianId: technicianId, message: message },
+                success: function(response) {
+                    alert("Message sent!");
+                },
+                error: function(xhr, status, error) {
+                    alert("Error sending message.");
+                }
+            });
+        }
+
+        function fetchMessages(technicianId, chatWindow) {
+            $.ajax({
+                url: 'get_messages.php',
+                type: 'GET',
+                data: { technicianId: technicianId },
+                success: function(response) {
+                    const messages = JSON.parse(response);
+                    messages.forEach(msg => {
+                        chatWindow.document.write('<p>' + msg.message + '</p>');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

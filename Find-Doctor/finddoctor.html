@@ -31,22 +31,29 @@
         height: 400px; /* Adjust the height as needed */
         width: 100%;
     }
-
-    .popup-btn {
-        margin-top: 5px;
-        display: block;
-        text-align: center;
-        background-color: #007BFF;
-        color: white;
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-    }
-
-    .popup-btn:hover {
-        background-color: #0056b3;
-    }
+ .popup-btn {
+          margin-top: 10px;
+          display: inline-block;
+          text-align: center;
+          background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+          color: #fff;
+          font-weight: bold;
+          font-size: 14px;
+          padding: 8px 15px;
+          border: none;
+          border-radius: 25px;
+          text-decoration: none;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          transition: all 0.3s ease;
+      }
+      
+      .popup-btn:hover {
+          background: linear-gradient(90deg, #92FE9D 0%, #00C9FF 100%);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+          transform: scale(1.05);
+          color: #000;
+      }
+      
 </style>
 </head>
 <body>
@@ -66,11 +73,19 @@
              </div>
              <i class="fa fa-bars" onclick="showMenu()" ></i>
         </nav>
-          <h1>Find your Doctor </h1>
+          <h1>Now you can easily find your Nearest doctor </h1>
          </section> 
          <!------------------------------------------------------------------------------------------------------------------>
     <div class="mapsapi">
-        <h1>Now you can easily find your doctor</h1>
+         <!-- Doctor Search Section -->
+         <div class="doctor-search">
+            <!--<input type="text" id="doctor-search-input" placeholder="Enter doctor's name">-->
+            <button id="find-all-doctor-button" onclick="location.href='Find_ALL_Doctors.html'">Find ALL Doctors</button>
+            <button id="find-all-doctor-button" onclick="location.href='Find_AI_Technicians.html'">Find AI Technicians</button>
+
+          
+        </div>
+        
 
         <!-- Location Search Section -->
          <!--<div class="location-search">
@@ -84,12 +99,8 @@
 
         </div>
 
-        <!-- Doctor Search Section -->
-        <div class="doctor-search">
-            <!--<input type="text" id="doctor-search-input" placeholder="Enter doctor's name">-->
-            <button id="find-doctor-button">Find Doctor</button>
-        </div>
-        <div id="doctor-results"></div>
+       
+      
     </div>
     <!--<script src="script.js"></script>-->
     <script>
@@ -120,28 +131,29 @@
                     const doctorsList = $('#doctorsList');
                     doctorsList.empty();
 
-                    // Loop through each doctor and add marker to the map
-                    doctors.forEach(doctor => {
-                        const distance = getDistance(latitude, longitude, doctor.latitude, doctor.longitude);
-                        if (distance <= 15) { // Distance threshold (in km)
-                            // Add marker for each doctor with a popup that includes the call/message buttons
-                            const popupContent = `
-                                <strong>${doctor.username}</strong><br>
-                                ${distance.toFixed(2)} km away<br>
-                                
-                                <a href="tel:${doctor.telephone}" class="popup-btn">Call Doctor</a><br>
-                                
-                                <a href="#" onclick="openChatWindow(${doctor.id})" class="popup-btn">Chat with Doctor</a>
+             // Loop through each doctor and add marker to the map
+doctors.forEach(doctor => {
+    const distance = getDistance(latitude, longitude, doctor.latitude, doctor.longitude);
+    
+    if (distance <= 15) { // Distance threshold (in km)
+        // Add marker for each doctor with a popup that includes the call/message buttons
+        const popupContent = `
+            <div style="text-align: center;">
+                <strong>${doctor.username}</strong>
+            </div>
+            <strong>${distance.toFixed(2)} km away</strong><br>
+            <strong>Contact: </strong> <a href="tel:${doctor.telephone}">${doctor.telephone}</a><br>
+            <strong>About Doctor: </strong>${doctor.additional_info}<br>
+            <a href="https://wa.me/${doctor.telephone}?text=Hello%20Dr.%20${doctor.username},%20I%20would%20like%20to%20discuss%20a%20medical%20query." 
+               target="_blank" class="popup-btn">Chat with Doctor on WhatsApp</a>
+        `;
 
-                                
-                            `;
-                            //above one for open chat window
+        // Create marker and bind the popup
+        const marker = L.marker([doctor.latitude, doctor.longitude]).addTo(map);
+        marker.bindPopup(popupContent);
+            }
+        });
 
-                            L.marker([doctor.latitude, doctor.longitude]).addTo(map)
-                                .bindPopup(popupContent)
-                                .openPopup();
-                        }
-                    });
                 }
             });
         }

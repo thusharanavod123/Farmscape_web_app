@@ -150,6 +150,24 @@ echo "Table 'AI_management' created successfully or already exists<br>";
 echo "Error creating table 'AI_management': " . mysqli_error($conn) . "<br>";
 }
 
+$sql9 = "CREATE TABLE IF NOT EXISTS Animal_health (
+  id INT AUTO_INCREMENT PRIMARY KEY,           -- Unique primary key
+  cow_id INT NOT NULL,                          -- Cow ID
+  farmer_id INT NOT NULL,                       -- Farmer ID
+  doctor_id INT NOT NULL,                       -- Doctor ID (person who is adding data)
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp when the entry is created
+  medicine VARCHAR(225),                        -- Medicine name
+  note TEXT,                                    -- Any relevant notes
+
+  FOREIGN KEY (farmer_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE, -- Foreign key for farmer
+  FOREIGN KEY (doctor_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE  -- Foreign key for doctor
+)";
+
+if (mysqli_query($conn, $sql9)) {
+  echo "Table 'Animal_health' created successfully or already exists<br>";
+} else {
+  echo "Error creating table 'Animal_health': " . mysqli_error($conn) . "<br>";
+}
 
 
 // Close connection
