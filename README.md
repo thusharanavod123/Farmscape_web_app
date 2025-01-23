@@ -1,2 +1,2 @@
-# Ride_shearing_web_app
-This Ride-sharing Web App backend manages user authentication, handles ride bookings, and tracks available vehicles. Features include creating and updating rides, booking management, and user profile management. Ensures data integrity and efficient seat allocation.
+# Farmscape_web_app
+This farm livestock management Web Application is a user-friendly platform designed to assist farmers, veterinarians, and agricultural professionals in tracking and managing the health records of livestock. By digitizing and organizing crucial data, the application ensures efficient recordkeeping, improved animal care, and seamless data access.
