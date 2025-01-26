@@ -148,7 +148,8 @@ $conn->close();
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="../About_Us/About.html">About Us</a></li>
                     <li><a href="../Product_Page/productpage.html">Sell & Buy</a></li>
-                    <li><a href="">Growth</a></li>
+                    <li><a href="FarmerProfile.php">Profile</a></li>
+                    <li><a href="vaccination_reminder.html">Notifications</a></li>
                 </ul>
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
@@ -175,6 +176,7 @@ $conn->close();
                 <li><a href="#" onclick="showSection('vaccination-schedule')">Vaccination Schedule Management</a></li>
                 <li><a href="#" onclick="showSection('cage-management')">Cage Management</a></li>
                 <li><a href="AddData.html" >Add Farm Details</a></li>
+                <li><a href="milk_yield_graph.html" >Show Milk Yield Perfomance</a></li>
                 
             </ul>
         </div>

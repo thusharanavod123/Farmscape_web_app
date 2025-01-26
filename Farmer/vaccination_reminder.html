@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccination Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #007BFF;
+            color: white;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vaccination Reminders</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cow ID</th>
+                    <th>Vaccine</th>
+                    <th>Next Due Date</th>
+                </tr>
+            </thead>
+            <tbody id="reminders-table">
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch('get_notifications.php')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('reminders-table');
+                data.forEach(notification => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${notification.cow_id}</td>
+                        <td>${notification.vaccine}</td>
+                        <td>${notification.next_due_date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching reminders:', error));
+    </script>
+</body>
+</html>

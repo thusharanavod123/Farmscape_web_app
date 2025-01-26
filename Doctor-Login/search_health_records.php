@@ -1,64 +1,51 @@
 <?php
-session_start();
+header('Content-Type: application/json');
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: doctorlogin.html");
-    exit();
-}
+// Database connection parameters
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$dbname = 'animal_health';
 
-// Check if the user is a doctor
-if ($_SESSION['role'] !== 'doctor') {
-    header("Location: doctorlogin.html");
-    exit();
-}
+// Connect to the database
+$conn = new mysqli($host, $username, $password, $dbname);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "farmscape";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+// Check the connection
+if ($conn->connect_error) {
+    echo json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]);
+    exit;
 }
 
 // Get the POST data
-$cow_id = isset($_POST['cow_id']) ? $_POST['cow_id'] : '';
-$farmer_id = isset($_POST['farmer_id']) ? $_POST['farmer_id'] : '';
+$cow_id = $_POST['cow_id'] ?? '';
+$farmer_id = $_POST['farmer_id'] ?? '';
 
-// Validate input
+// Validate the inputs
 if (empty($cow_id) || empty($farmer_id)) {
-    echo json_encode(['error' => 'Cow ID and Farmer ID are required']);
-    exit();
+    echo json_encode(['error' => 'Cow ID and Farmer ID are required.']);
+    exit;
 }
 
-// SQL query to search health records by cow_id and farmer_id
-$sql = "SELECT h.id, h.cow_id, h.farmer_id, h.doctor_id, h.medicine, h.note, h.created_at, u.username as doctor_name
-        FROM health_records h
-        JOIN users u ON h.doctor_id = u.id
-        WHERE h.cow_id = ? AND h.farmer_id = ?";
+// Prepare the SQL query
+$stmt = $conn->prepare('SELECT * FROM health_records WHERE cow_id = ? AND farmer_id = ?');
+$stmt->bind_param('ss', $cow_id, $farmer_id);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $cow_id, $farmer_id);
+// Execute the query
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Check if any records are found
 if ($result->num_rows > 0) {
     $records = [];
+
     while ($row = $result->fetch_assoc()) {
         $records[] = $row;
     }
-    // Return results as JSON
+
+    // Return the records as JSON
     echo json_encode($records);
 } else {
-    // No records found
-    echo json_encode(['error' => 'No health records found for the provided Cow ID and Farmer ID']);
+    echo json_encode(['error' => 'No records found.']);
 }
 
-$stmt->close();
+// Close the connection
 $conn->close();
