@@ -1,11 +1,13 @@
 <?php
 session_start();
 
+// Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: Farmer.html");
     exit();
 }
 
+// Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -14,11 +16,13 @@ $dbname = "farmscape";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Database connection failed: " . $conn->connect_error);
 }
 
-$user_id = $_SESSION['user_id']; // Logged-in user ID
+// Get logged-in user's ID
+$user_id = $_SESSION['user_id'];
 
 // Fetch user details (email and name) from the database
 $sql = "SELECT email, username FROM users WHERE id = '$user_id'";
@@ -29,7 +33,6 @@ if ($result->num_rows > 0) {
     $user_email = $row['email'];
     $user_name = $row['username'];
 } else {
-    // Handle case where user details are not found
     echo "User details not found.";
     exit();
 }
@@ -39,9 +42,9 @@ $sql = "SELECT cow_id, vaccine, next_due_date
         FROM vaccination_schedule 
         WHERE user_id = '$user_id' 
         AND next_due_date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)";
-
 $result = $conn->query($sql);
 
+// Check if there are upcoming vaccinations
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $cow_id = $row['cow_id'];
@@ -58,11 +61,11 @@ if ($result->num_rows > 0) {
                 'to_email' => $user_email, // Farmer's email
                 'user_name' => $user_name, // Farmer's name
                 'cow_id' => $cow_id,
-                'next_due_date' => $next_due_date
+                'next_due_date' => $next_due_date,
             ]
         ]);
 
-        // Send email
+        // Initialize cURL
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
@@ -71,17 +74,27 @@ if ($result->num_rows > 0) {
             'Content-Type: application/json',
         ]);
 
+        // Execute cURL request
         $response = curl_exec($ch);
+        $error = curl_error($ch); // Capture any cURL errors
         curl_close($ch);
 
-        if ($response === false) {
-            echo "Error sending email: " . curl_error($ch);
+        // Debugging and error handling
+        if ($response === false || $error) {
+            echo "Error sending email for cow ID $cow_id: $error\n";
         } else {
-            echo "Email sent for email : $user_email\n";
+            $responseData = json_decode($response, true);
+            if (isset($responseData['error'])) {
+                // Handle API-level errors
+                echo "API Error for cow ID $cow_id: " . $responseData['error'] . "\n";
+            } else {
+                echo "Email sent successfully for cow ID $cow_id to $user_email\n";
+            }
         }
     }
 } else {
     echo "No upcoming vaccinations found.";
 }
 
+// Close the database connection
 $conn->close();

@@ -114,29 +114,48 @@
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
     </section>
-    <div class="container1">
-        <h2>Add Feeding Data</h2>
-        <form method="POST" action="AddData.php">
-            <table>
-                <tr>
-                    <th>Cow ID</th>
-                    <td><input type="text" name="cow_id" required></td>
-                </tr>
-                <tr>
-                    <th>Feed Type</th>
-                    <td><input type="text" name="feed_type" required></td>
-                </tr>
-                <tr>
-                    <th>Quantity</th>
-                    <td><input type="number" name="quantity" required></td>
-                </tr>
-                <tr>
-                    <th>Frequency</th>
-                    <td><input type="text" name="frequency" required></td>
-                </tr>
-            </table>
-            <button type="submit" name="add_feeding">Add Feeding Data</button>
-        </form>
+   <div class="container1">
+    <h2>Add Feeding Data</h2>
+    <form method="POST" action="AddData.php">
+        <table>
+            <tr>
+                <th>Cow ID</th>
+                <td><input type="text" name="cow_id" required></td>
+            </tr>
+            <tr>
+                <th>Feed Type</th>
+                <td>
+                    <select name="feed_type" required>
+                        <option value="">Select Feed Type</option>
+                        <option value="Hay">Hay</option>
+                        <option value="Grain Mix">Grain Mix</option>
+                        <option value="Alfalfa">Alfalfa</option>
+                        <option value="Molasses Supplement">Molasses Supplement</option>
+                        <option value="Silage">Silage</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Quantity (kg)</th>
+                <td><input type="number" name="quantity" required></td>
+            </tr>
+            <tr>
+                <th>Frequency</th>
+                <td>
+                    <select name="frequency" required>
+                        <option value="">Select Frequency</option>
+                        <option value="Daily">Daily</option>
+                        <option value="Every 12 hours">Every 12 hours</option>
+                        <option value="Twice a day">Twice a day</option>
+                        <option value="Weekly">Weekly</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" name="add_feeding">Add Feeding Data</button>
+    </form>
+
+
 
         <h2>Add Milk Yield Data</h2>
         <form method="POST" action="AddData.php">
@@ -157,32 +176,52 @@
             <button type="submit" name="add_milk_yield">Add Milk Yield Data</button>
         </form>
 
+        
         <h2>Add Vaccination Data</h2>
-        <form method="POST" action="AddData.php">
-            <table>
-                <tr>
-                    <th>Date</th>
-                    <td><input type="date" name="vaccine_date" required></td>
-                </tr>
-                <tr>
-                    <th>Cow ID</th>
-                    <td><input type="text" name="vaccine_cow_id" required></td>
-                </tr>
-                <tr>
-                    <th>Vaccine</th>
-                    <td><input type="text" name="vaccine" required></td>
-                </tr>
-                <tr>
-                    <th>Next Due Date</th>
-                    <td><input type="date" name="next_due_date" required></td>
-                </tr>
-                <tr>
-                    <th>Symptoms</th>
-                    <td><input type="text" name="symptoms"></td>
-                </tr>
-            </table>
-            <button type="submit" name="add_vaccine">Add Vaccination Data</button>
-        </form>
+<form method="POST" action="AddData.php">
+    <table>
+        <tr>
+            <th>Date</th>
+            <td><input type="date" name="vaccine_date" id="vaccine_date" required></td>
+        </tr>
+        <tr>
+            <th>Cow ID</th>
+            <td><input type="text" name="vaccine_cow_id" required></td>
+        </tr>
+        <tr>
+            <th>Vaccine</th>
+            <td>
+                <select name="vaccine" required>
+                    <option value="">Select Vaccine</option>
+                    <option value="Rabies">Rabies</option>
+                    <option value="Brucellosis">Brucellosis</option>
+                    <option value="Bovine TB">Bovine TB</option>
+                    <option value="Foot and Mouth Disease">Foot and Mouth Disease</option>
+                    <option value="Anthrax">Anthrax</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Next Due Date</th>
+            <td><input type="date" name="next_due_date" id="next_due_date" required></td>
+        </tr>
+        <tr>
+            <th>Symptoms</th>
+            <td>
+                <select name="symptoms">
+                    <option value="">Select Symptoms (Optional)</option>
+                    <option value="Fever">Fever</option>
+                    <option value="Loss of Appetite">Loss of Appetite</option>
+                    <option value="Coughing">Coughing</option>
+                    <option value="Lethargy">Lethargy</option>
+                    <option value="Diarrhea">Diarrhea</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" name="add_vaccine">Add Vaccination Data</button>
+</form>
+
 
 
         <h2>Add Cage Data</h2>

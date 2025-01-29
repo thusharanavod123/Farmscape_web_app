@@ -4,47 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOCTOR PROFILE</title>
-    <link rel="stylesheet" href="#">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
     <link rel="shortcut icon" href="images/fav.png" type="image/svg">
-    <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
-<body>
-    <section class="sub-header">
-        <nav>
-            <a href="../index.html"><img src="../images/logo1.png"></a>
-            <div class="nav-links" id="navLinks">
-                <i class="fa fa-times" onclick="hideMenu()"></i>
-                <ul>
-                    <!-- The navigation links will be dynamically replaced based on login state -->
-                </ul>
-            </div>
-            <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
-        <h1>Be a Part Of Our Family</h1>
-    </section>
 
-    <div class="fd">
-        <form id="login-form">
-            <input type="email" id="email" name="email" placeholder="Email" required><br>
-            <input type="password" id="password" name="password" placeholder="Password" required><br>
-            <input type="submit" value="Login">
+<body style="margin: 0; font-family: Arial, sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; color: #333; position: relative; overflow: hidden;">
+
+
+    
+    <!-- Login Form -->
+    <div class="fd" style="background-color: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; text-align: center; z-index: 2;">
+        <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #4facfe;">Login to Your Account</h2>
+        <form id="login-form" style="display: flex; flex-direction: column; gap: 1rem;">
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="Email" 
+                required 
+                style="font-size: 1rem; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; outline: none; background-color: #f9f9f9; transition: border-color 0.3s;"
+                onfocus="this.style.borderColor='#4facfe';"
+                onblur="this.style.borderColor='#ddd';"
+            >
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                placeholder="Password" 
+                required 
+                style="font-size: 1rem; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; outline: none; background-color: #f9f9f9; transition: border-color 0.3s;"
+                onfocus="this.style.borderColor='#4facfe';"
+                onblur="this.style.borderColor='#ddd';"
+            >
+            <input 
+                type="submit" 
+                value="Login" 
+                style="font-size: 1rem; padding: 0.8rem; background-color: #4facfe; color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s;"
+                onmouseover="this.style.backgroundColor='#0099ff';"
+                onmouseout="this.style.backgroundColor='#4facfe';"
+            >
         </form>
-        <div id="error-message"></div>
-    </div>        
-
-
-         <!-- SweetAlert2 JavaScript -->
+        <div id="error-message" style="margin-top: 1rem; color: red; font-size: 0.9rem;"></div>
+    </div>
+        
+    <!-- SweetAlert2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-   
-        
-        
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('login-form');
             const errorMessage = document.getElementById('error-message');
+            const blurBackground = document.getElementById('blur-background');
         
             loginForm.addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent form refresh
@@ -68,103 +79,74 @@
                         localStorage.setItem('username', data.username);
                         localStorage.setItem('role', data.role);
         
-                        
-                // Show welcome message based on the role
-                let roleMessage = '';
-                switch (data.role) {
-                    case 'doctor':
-                        roleMessage = `Welcome back, Doctor ${data.username}!`;
-                        break;
-                    case 'farmer':
-                        roleMessage = `Welcome back, Farmer ${data.username}!`;
-                        break;
-                    case 'ai_technician':
-                        roleMessage = `Welcome back, AI Technician ${data.username}!`;
-                        break;
-                    case 'admin':
-                        roleMessage = `Welcome back, Admin ${data.username}!`;
-                        break;
-                    default:
-                        roleMessage = 'Welcome!';
-                }
+                        // Show welcome message based on the role
+                        let roleMessage = '';
+                        switch (data.role) {
+                            case 'doctor':
+                                roleMessage = `Welcome back, Doctor ${data.username}!`;
+                                break;
+                            case 'farmer':
+                                roleMessage = `Welcome back, Farmer ${data.username}!`;
+                                break;
+                            case 'ai_technician':
+                                roleMessage = `Welcome back, AI Technician ${data.username}!`;
+                                break;
+                            case 'admin':
+                                roleMessage = `Welcome back, Admin ${data.username}!`;
+                                break;
+                            default:
+                                roleMessage = 'Welcome!';
+                        }
 
-                // Show SweetAlert2 popup
-                Swal.fire({
-                    title: roleMessage,
-                    text: `You are successfully logged in as ${data.role}.`,
-                    icon: 'success',
-                    confirmButtonText: 'Continue'
-                }).then(() => {
-                     // Redirect after showing the message
-                     if (data.role === 'admin') {
-                        window.location.href = '../Admin_Panel/admin.html';  // Redirect to the admin dashboard
-                     }
-                     else if  (data.role === 'farmer') {
-                        window.location.href = '../Farmer/FarmerProfile.php';   
-                     }
-                     else if  (data.role === 'ai_technician') {
-                        window.location.href = '../AItechnicianupdate/AITechnicianProfile.php';  
-                        
-                    } 
-                    else if  (data.role === 'doctor') {
-                        window.location.href = '../Doctor-Login/DoctorProfile.php';  
-                     }
-                     
-                     else {
-                        window.location.href = '../index.html';  // Redirect to the homepage for other roles
+                        // Show SweetAlert2 popup
+                        Swal.fire({
+                            title: roleMessage,
+                            text: `You are successfully logged in as ${data.role}.`,
+                            icon: 'success',
+                            confirmButtonText: 'Continue',
+                            onBeforeOpen: () => {
+                                // Blur the background when popup appears
+                                blurBackground.style.backdropFilter = 'blur(8px)';
+                                document.body.style.overflow = 'hidden';  // Prevent scrolling while modal is open
+                            },
+                            onClose: () => {
+                                // Reset the background blur when popup is closed
+                                blurBackground.style.backdropFilter = 'blur(0px)';
+                                document.body.style.overflow = 'auto';  // Allow scrolling again
+                            }
+                        }).then(() => {
+                            // Redirect after showing the message
+                            if (data.role === 'admin') {
+                                window.location.href = '../Admin_Panel/admin.html';  // Redirect to the admin dashboard
+                            }
+                            else if  (data.role === 'farmer') {
+                                window.location.href = '../Farmer/FarmerProfile.php';   
+                            }
+                            else if  (data.role === 'ai_technician') {
+                                window.location.href = '../AItechnicianupdate/AITechnicianProfile.php';  
+                            } 
+                            else if  (data.role === 'doctor') {
+                                window.location.href = '../Doctor-Login/DoctorProfile.php';  
+                            }
+                            else {
+                                window.location.href = '../index.html';  // Redirect to the homepage for other roles
+                            }
+                        });
+
+                    } else {
+                        // Display error message
+                        errorMessage.textContent = data.message;
+                        errorMessage.style.color = 'red';
                     }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorMessage.textContent = 'There was an error processing your request.';
+                    errorMessage.style.color = 'red';
                 });
-
-            } else {
-                // Display error message
-                errorMessage.textContent = data.message;
-                errorMessage.style.color = 'red';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            errorMessage.textContent = 'There was an error processing your request.';
-            errorMessage.style.color = 'red';
+            });
         });
-    });
-});
     </script>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h2>FARMSCAPE</h2>
-                </div>
-                <div class="footer-sections">
-                    <div class="footer-col">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="../About_Us/About.html">about us</a></li>
-                            <li><a href="../Contact_Us/ContactUs.html">Contact Us</a></li>
-                            <li><a href="../privacypolicy/privacypolicy.html">privacy policy</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Get help</h4>
-                        <ul>
-                            <li><a href="../Find-Doctor/finddoctor.html">Find Doctor</a></li>
-                            <li><a href="../Farmer_Page/animal-details.html">Animal Profile</a></li>
-                            <li><a href="../login/login.html">Login</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Follow us</h4>
-                        <div class="social-links">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

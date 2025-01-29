@@ -3,7 +3,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css">
     <title>FARMSCAPE </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +13,8 @@
       href="images/fav.png"
       type="image/svg"
     />
+    <link rel="stylesheet" href="style.css">
+
  </head>
         
 
@@ -37,9 +38,11 @@
             </p> 
 <!--------------------------------annoucment bannner------------------------------------------------------------------------>
 <header class="notice">
-    <img src="notice-bg.jpg" alt="" class="notice-bg">
+    
     <div class="notice-banner" id="noticeBanner">
-        <p id="noticeMessage"></p>
+        <p id="noticeMessage" style="font-size: 20px; color: black; text-align: center; margin: 0; font-weight: bold;">
+   
+</p>
     </div>
     <div class="blurred-background"></div>
 </header>
@@ -321,6 +324,8 @@ pen_spark
                   <li><a href="index.html">Home</a></li>
                 <li><a href="About_Us/About.html">About Us</a></li>
                 <li><a href="Product_Page/productpage.html">Sell & Buy</a></li>
+                <li><a href="Farmer/vaccination_reminder.html">Notifications</a></li>
+
                 <li><a href="logout/logout.php" id="logout">Logout</a></li>
             `;
         } else {
@@ -352,7 +357,7 @@ pen_spark
                 if (notices.length > 0) {
                     showNextNotice();
                     // Set an interval to show the next notice every 5 seconds
-                    setInterval(showNextNotice, 5000);
+                    setInterval(showNextNotice, 3000);
                 }
             })
             .catch(error => {

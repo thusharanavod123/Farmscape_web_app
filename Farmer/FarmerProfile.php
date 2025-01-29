@@ -89,7 +89,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="../style.css">
-    <title>Your Profile</title>
+    <title>FARMSCAPE </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
     <link rel="stylesheet" href="Farmer.css">
     <link rel="shortcut icon" href="images/fav.png" type="image/svg" />
@@ -253,6 +253,7 @@ $conn->close();
                             <th>Cow ID</th>
                             <th>Vaccine</th>
                             <th>Next Due Date</th>
+                            <th>symptoms</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -264,6 +265,7 @@ $conn->close();
                                 echo "<td contenteditable='true'>" . $row['cow_id'] . "</td>";
                                 echo "<td contenteditable='true'>" . $row['vaccine'] . "</td>";
                                 echo "<td contenteditable='true'>" . $row['next_due_date'] . "</td>";
+                                echo "<td contenteditable='true'>" . $row['symptoms'] . "</td>";
                                 echo "</tr>";
                             }
                         } else {
