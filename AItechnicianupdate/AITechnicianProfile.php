@@ -174,7 +174,7 @@ $conn->close();
       
 
        <!-- Main Content -->
-<div class="main-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 30vh;">
+<div class="main-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 30vh; padding-left: 300px; margin-bottom: 100px;margin-top: 100px;">
     <h2>AI Technician Dashboard</h2>
     <p>Manage your AI treatments and reports here.</p>
 
@@ -182,6 +182,7 @@ $conn->close();
     <div class="button-container" style="display: flex; gap: 15px; justify-content: center;">
         <a href="view_ai_treatment.php" class="nav-button">View AI Reports</a>
         <a href="add_ai_treatment.php" class="nav-button">Add AI Treatment</a>
+        <a href="ai_treatment_reminders.html" class="nav-button">Reminders</a>
     </div>
 </div>
 

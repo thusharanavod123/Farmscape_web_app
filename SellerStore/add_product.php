@@ -25,15 +25,23 @@ $price = isset($_POST['product-price']) ? floatval($_POST['product-price']) : 0;
 $description = isset($_POST['product-description']) ? mysqli_real_escape_string($conn, $_POST['product-description']) : '';
 
 // Handle image uploads
-$image = null;
+$image_path = null;
 if (isset($_FILES['product-images']) && $_FILES['product-images']['error'] == 0) {
-    $imageData = file_get_contents($_FILES['product-images']['tmp_name']);
-    $image = $conn->real_escape_string($imageData); // Escape the binary data
+    $upload_dir = './uploads/'; // Folder to store images
+    $image_name = uniqid() . '_' . basename($_FILES['product-images']['name']); // Unique image name
+    $target_file = $upload_dir . $image_name;
+
+    if (move_uploaded_file($_FILES['product-images']['tmp_name'], $target_file)) {
+        $image_path = $target_file; // Save the path in the database
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Failed to upload image']);
+        exit();
+    }
 }
 
 $query = "INSERT INTO marketPlace (Title, Price, Description, Image, user_id) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("sdssi", $title, $price, $description, $image, $user_id); // Image should be 'b' for blob
+$stmt->bind_param("sdssi", $title, $price, $description, $image_path, $user_id); // Save the path, not binary data
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true]);
@@ -43,3 +51,4 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
+

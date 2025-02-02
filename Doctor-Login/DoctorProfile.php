@@ -209,8 +209,8 @@ $conn->close();
             <ul>
                 <li><a href="javascript:void(0)" onclick="showSection('search-vaccine')">Search Vaccination</a></li>
                 <li><a href="javascript:void(0)" onclick="showSection('add-vaccine')">Add Animal Health Data</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('search-health')">Search Animal Health</a></li>
-            </ul>
+                <li><a href="search_health.html">Search Animal Health</a></li>
+                </ul>
         </div>
 
         <!-- Main Content -->
@@ -267,26 +267,7 @@ $conn->close();
         </form>
     </section>
 
- <!-- Search animal health Details -->
-
-    <section id="search-health" class="form-container">
-                <h2 class="form-title">Search Health Records</h2>
-                <form id="vaccinationForm" onsubmit="fetchVaccinationDetails(event)">
-                    <table>
-                        <tr>
-                            <th>Cow ID:</th>
-                            <td><input type="text" id="cow_id" name="cow_id" required></td>
-                        </tr>
-                        <tr>
-                            <th>Farmer id:</th>
-                            <td><input type="text" id="farmer_id" name="farmer_id" required></td>
-                        </tr>
-                    </table>
-                    <input type="submit" value="Search">
-                </form>
-                <div id="result" class="result-display"></div>
-            </section>
-
+ 
 
       <!-- Search animal health Details -->
       <section id="search-health" class="form-container">
@@ -306,6 +287,8 @@ $conn->close();
             </section>
         </div>
     </div>     
+
+    
      <script>
 
 document.getElementById('searchForm').addEventListener('submit', function(event) {

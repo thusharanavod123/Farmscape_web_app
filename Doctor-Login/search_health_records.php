@@ -1,19 +1,19 @@
 <?php
 header('Content-Type: application/json');
 
-// Database connection parameters
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'animal_health';
+session_start();
 
-// Connect to the database
-$conn = new mysqli($host, $username, $password, $dbname);
 
-// Check the connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "farmscape";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
 if ($conn->connect_error) {
-    echo json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]);
-    exit;
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Get the POST data
@@ -27,8 +27,8 @@ if (empty($cow_id) || empty($farmer_id)) {
 }
 
 // Prepare the SQL query
-$stmt = $conn->prepare('SELECT * FROM health_records WHERE cow_id = ? AND farmer_id = ?');
-$stmt->bind_param('ss', $cow_id, $farmer_id);
+$stmt = $conn->prepare('SELECT * FROM animal_health WHERE cow_id = ? AND farmer_id = ?');
+$stmt->bind_param('ii', $cow_id, $farmer_id);
 
 // Execute the query
 $stmt->execute();

@@ -82,7 +82,7 @@
                         <h4>Online Shop</h4>
                         <ul>
                             <li><a href="../SellerStore/sellerstore.html">Become a Seller</a></li>
-                            <li><a href="../Product_Page/productpage.html">Product Page</a></li>
+                            <li><a href="../SellerStore/productpage.html">Product Page</a></li>
                         </ul>
                     </div>
                 </div>
@@ -153,18 +153,25 @@ function fetchProducts() {
                     // Check if the price is valid and convert to a number safely
                     const price = !isNaN(parseFloat(product.Price)) ? parseFloat(product.Price).toFixed(2) : "N/A";
 
-                    // Fallback for missing or broken images
+                    // ✅ Use the image URL directly or fallback to a default image if missing
                     const imageSrc = product.Image 
-                        ? `data:image/jpeg;base64,${product.Image}` 
-                        : './kk.jpg'; // Replace with the actual path to a default image
+                        ? product.Image  // Now using the URL from the database
+                        : './kk.jpg';    // Fallback image path (local default image)
 
+                
                     productDiv.innerHTML = `
-                        <h3>${product.Title}</h3>
-                        <p>Price: $${price}</p>
-                        <p>${product.Description}</p>
-                        <img src="${imageSrc}" alt="${product.Title}" style="width: 150px; height: 150px;">
-                        <button onclick="deleteProduct(${product.id})">Delete</button>
-                    `;
+    <div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 10px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #333; font-size: 1.5em; margin-bottom: 8px;">${product.Title}</h3>
+        <p style="font-weight: bold; color: #007BFF;">Price: $${product.Price}</p>
+        <p style="color: #555; margin-bottom: 12px;">${product.Description}</p>
+        <button 
+            onclick="deleteProduct(${product.id})" 
+            style="padding: 8px 16px; background-color: #ff4d4d; color: white; border: none; border-radius: 4px; cursor: pointer;"
+        >
+            Delete
+        </button>
+    </div>
+`;
 
                     productList.appendChild(productDiv);
                 });

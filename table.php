@@ -106,7 +106,7 @@ $sql6 = "CREATE TABLE IF NOT EXISTS marketPlace (
     Title VARCHAR(255) NOT NULL,
     Price DECIMAL(10, 2) NOT NULL,
     Description TEXT NOT NULL,
-    Image LONGBLOB NOT NULL,
+    Image VARCHAR(255),
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )";

@@ -6,28 +6,28 @@ $password = "";
 $dbname = "farmscape"; 
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$connection = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
 // Fetch data from marketPlace table
-$sql = "SELECT id, Title, Price, Description, Image FROM marketPlace";
-$result = $conn->query($sql);
+$query = "SELECT * FROM marketPlace ORDER BY id ASC";
+$result = mysqli_query($connection, $query);
+
 
 $products = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Convert the image blob to base64 for rendering
-        $row['Image'] = base64_encode($row['Image']);
+       
         $products[] = [
             'id' => $row['id'],
             'title' => $row['Title'],
             'cost' => floatval($row['Price']), // Ensure 'cost' is a float
             'description' => $row['Description'],
-            'image' => 'data:image/jpeg;base64,' . $row['Image'], // Assuming image is in JPEG format
+            'image' =>  $row['Image'], 
         ];
     }
 }
@@ -37,4 +37,4 @@ header('Content-Type: application/json');
 echo json_encode($products);
 
 // Close the connection
-$conn->close(); 
+$connection->close(); 

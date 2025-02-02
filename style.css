@@ -20,13 +20,12 @@
     top: 10%;
     left: 10%;
     right: 10%;
-    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white background */
-    backdrop-filter: blur(8px); /* Adds a blur effect to the background */
-    color: black; /* Black text color for better contrast */
+    background-color: rgba(255, 255, 255, 0.6); 
+    color: black; 
     padding: 20px;
-    border-radius: 10px; /* Fully rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    z-index: 10; /* Ensure it appears above other content */
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    z-index: 10; 
 }
 
 .notice-banner p {
@@ -143,10 +142,10 @@ nav .fa {
 }
 
 .blurred-background {
-    background-image: url('images/firstimage.jpg'); /* Replace with your image path */
+    background-image: url('images/firstimage.jpg'); 
     background-size: cover;
     background-position: center;
-    filter: blur(15px); /* Adjust the blur radius as needed */
+    filter: blur(15px); 
   }
 @media (max-width: 700px) {
     .text-box h1 {

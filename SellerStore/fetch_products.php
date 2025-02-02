@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'error' => 'User not logged in']);
@@ -12,7 +13,6 @@ $password = "";
 $dbname = "farmscape";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 if ($conn->connect_error) {
     echo json_encode(['success' => false, 'error' => 'Database connection failed']);
     exit();
@@ -20,7 +20,6 @@ if ($conn->connect_error) {
 
 $user_id = $_SESSION['user_id'];
 
-// Query to fetch products for the logged-in user
 $query = "SELECT id, Title, Price, Description, Image FROM marketPlace WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
@@ -29,14 +28,18 @@ $result = $stmt->get_result();
 
 $products = [];
 while ($row = $result->fetch_assoc()) {
-    // Convert binary image data to base64 for display in HTML
     if (!empty($row['Image'])) {
-        $row['Image'] = base64_encode($row['Image']);
+        // Assuming the 'Image' column contains the relative URL (e.g., 'uploads/image.jpg')
+        $row['Image'] = 'http://your-domain.com/' . $row['Image'];  // Replace with your domain or base path
     }
     $products[] = $row;
 }
 
-echo json_encode(['success' => true, 'products' => $products]);
+if (empty($products)) {
+    echo json_encode(['success' => true, 'products' => [], 'message' => 'No products found']);
+} else {
+    echo json_encode(['success' => true, 'products' => $products]);
+}
 
 $stmt->close();
 $conn->close();
